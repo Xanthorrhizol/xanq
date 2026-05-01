@@ -5,4 +5,5 @@ pub mod message;
 pub mod producer;
 pub mod queue;
 
+#[macro_use]
 extern crate log;
