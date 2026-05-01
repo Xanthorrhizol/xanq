@@ -6,15 +6,33 @@ use tokio::sync::Mutex;
 pub trait Consumer<T: Message> {
     fn queue(&self) -> &Mutex<Queue>;
     async fn consume(&self) -> Option<T> {
-        let message = self.queue().lock().await.pop_front();
-        message.map(|m| Message::decode(&m).ok()).flatten()
+        match self.queue().lock().await.pop_front() {
+            Some(m) => match T::decode(&m) {
+                Ok(m) => Some(m),
+                Err(_) => {
+                    error!("failed to decode message");
+                    None
+                }
+            },
+            None => {
+                warn!("failed to pop message");
+                None
+            }
+        }
     }
     async fn peek(&self, id: usize) -> Option<T> {
-        self.queue()
-            .lock()
-            .await
-            .peek(id)
-            .map(|m| Message::decode(&m).ok())
-            .flatten()
+        match self.queue().lock().await.peek(id) {
+            Some(m) => match T::decode(&m) {
+                Ok(m) => Some(m),
+                Err(_) => {
+                    error!("failed to decode message");
+                    None
+                }
+            },
+            None => {
+                warn!("failed to peek message");
+                None
+            }
+        }
     }
 }
