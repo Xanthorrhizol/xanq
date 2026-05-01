@@ -1,5 +1,7 @@
-pub trait Address {
-    fn to_string(&self) -> String;
+pub trait Address
+where
+    Self: Sized + std::str::FromStr + std::string::ToString,
+{
     fn retention_time(&self) -> u64 {
         0 // unlimited
     }

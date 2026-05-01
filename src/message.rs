@@ -1,10 +1,9 @@
-use bytes::Bytes;
+use crate::address::Address;
+use xancode::Codec;
 
 pub trait Message
 where
-    Self: Sized,
+    Self: Sized + Codec,
 {
-    type Error: std::error::Error;
-    fn encode(&self) -> Bytes;
-    fn decode(data: &Bytes) -> Result<Self, Self::Error>;
+    fn address<T: Address>(&self) -> T;
 }

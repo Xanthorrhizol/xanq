@@ -140,6 +140,27 @@ dependencies = [
 ]
 
 [[package]]
+name = "xancode"
+version = "0.1.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "fa1c098ccd8a48534ebbfbe9be0cf527f9728b283f17e7f1c7f8e7056a5d4c3f"
+dependencies = [
+ "bytes",
+ "xancode_macros",
+]
+
+[[package]]
+name = "xancode_macros"
+version = "0.1.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "ed8201f2fbe9d3abb3b63108e208f879f895530f6b249be3655155b2820722d1"
+dependencies = [
+ "proc-macro2",
+ "quote",
+ "syn",
+]
+
+[[package]]
 name = "xanq"
 version = "0.1.0"
 dependencies = [
@@ -147,4 +168,5 @@ dependencies = [
  "bytes",
  "log",
  "tokio",
+ "xancode",
 ]
