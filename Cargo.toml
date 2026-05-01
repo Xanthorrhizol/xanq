@@ -8,4 +8,4 @@ async-trait = "0.1.89"
 bytes = "1.11.1"
 log = "0.4.29"
 tokio = { version = "1.52.1", features = ["rt-multi-thread", "sync", "time", "macros", "net"] }
-xancode = "0.1.1"
+xancode = "0.2.0"
