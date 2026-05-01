@@ -1,10 +1,11 @@
 use crate::message::Message;
 use crate::queue::Queue;
-use std::sync::Mutex;
+use tokio::sync::Mutex;
 
-pub trait Producer<T: Message> {
+#[async_trait::async_trait]
+pub trait Producer<T: Message + Send + 'static> {
     fn queue(&self) -> &Mutex<Queue>;
-    fn produce(&self, message: T) {
-        self.queue().lock().unwrap().push_back(message.encode());
+    async fn produce(&self, message: T) {
+        self.queue().lock().await.push_back(message.encode());
     }
 }
