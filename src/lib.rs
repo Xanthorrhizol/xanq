@@ -1,9 +1,8 @@
 pub mod address;
 pub mod agent;
+pub mod client;
 pub mod consumer;
-pub mod message;
+pub mod frame;
 pub mod producer;
 pub mod queue;
-
-#[macro_use]
-extern crate log;
+pub mod server;

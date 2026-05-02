@@ -1,7 +1,15 @@
-pub trait Address
-where
-    Self: Sized + std::str::FromStr + std::string::ToString,
-{
+use xancode::Codec;
+
+#[derive(Codec, Debug, Clone, Copy, PartialEq, Eq)]
+pub enum DeliveryMode {
+    Anycast,
+    Broadcast,
+}
+
+pub trait Address: Codec {
+    fn delivery_mode(&self) -> DeliveryMode {
+        DeliveryMode::Anycast
+    }
     fn retention_time(&self) -> u64 {
         0 // unlimited
     }
